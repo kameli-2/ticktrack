@@ -1,0 +1,96 @@
+.logEntryHeader button {
+  margin: 0 2rem;
+}
+
+.logEntries {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem;
+}
+
+.logEntries > * {
+  flex-grow: 1;
+}
+
+.logEntry {
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0;
+}
+
+.logEntryHours,
+.logEntryMinutes,
+.logEntryProject,
+.logEntryDescription,
+.logEntryDelete,
+.logEntryDuplicate {
+  font-size: .9rem;
+  line-height: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+}
+
+.logEntryHours,
+.logEntryProject,
+.logEntryDescription,
+.logEntryDelete {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.logEntryMinutes,
+.logEntryDescription,
+.logEntryDelete,
+.logEntryDuplicate {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.logEntryProject {
+  background-color: #eee;
+}
+
+.logEntryDescription {
+  flex-grow: 2;
+}
+
+.logEntryDelete,
+.logEntryDuplicate {
+  background-color: var(--color-danger);
+  color: #fff;
+  min-width: 1.5rem;
+}
+
+.logEntryDelete:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.logEntryDuplicate {
+  background-color: var(--color-add);
+  color: #000;
+}
+
+.logEntryDuplicate:hover {
+  background-color: var(--color-add-hover);
+}
+
+.logEntryBreak {
+  color: #555;
+  font-size: 0.75rem;
+  text-shadow: 0 0 3px #fff;
+}
+
+.logEntryExtendUp,
+.logEntryExtendDown {
+  border: 1px solid var(--color-border);
+  padding: 0.25rem 0.25rem;
+  margin: -0.3rem 0;
+  left: 3.25rem;
+  position: absolute;
+}
+
+.logEntryExtendDown {
+  left: 11rem;
+}

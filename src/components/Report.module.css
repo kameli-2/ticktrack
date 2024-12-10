@@ -1,0 +1,23 @@
+.reportTable {
+  border-collapse: collapse;
+  margin: 0.5rem;
+  text-align: left;
+  width: calc(100% - 1rem);
+  box-shadow: 3px 3px 3px var(--color-border);
+}
+
+.reportTable td {
+  padding: 1rem;
+}
+
+.reportTable tr:nth-child(2n+1) {
+  background-color: #eee;
+}
+
+.reportTable tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+.reportTableTotalsRow {
+  border-top: 3px solid var(--color-border);
+}
