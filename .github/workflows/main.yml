@@ -32,5 +32,4 @@ jobs:
 
     # Example of using the output
     - id: 'test'
-      run: |
-        npm test
+      run: 'curl "${{ steps.deploy.outputs.version_url }}"'
