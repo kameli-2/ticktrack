@@ -20,6 +20,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Build & test
+      run: |
+        npm ci
+        npm run build
+        npm test
+
     - id: 'auth'
       name: Authenticate to GCP
       uses: 'google-github-actions/auth@v2'
