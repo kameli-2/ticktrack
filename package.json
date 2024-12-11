@@ -20,7 +20,7 @@
     "prestart": "npm install -g serve",
     "local": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "deploy": "react-scripts test --watchAll=false && react-scripts build && gcloud app deploy"
   },
