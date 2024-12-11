@@ -1,5 +1,5 @@
 import styles from './LogEntries.module.css'
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import {
   getLogEntries,
   deleteLogEntry,
@@ -104,15 +104,15 @@ export default function LogEntries(props: LogEntriesProps) {
 
   return <>
     <h2 className={styles.logEntryHeader}>
-      <button className="btn" onClick={prevDate}>&lt;</button>
+      <button className="btn" onClick={prevDate} aria-label="Select previous date">&lt;</button>
       &nbsp;
       {showDate.toDateString()}
       &nbsp;
-      <button className="btn" onClick={nextDate}>&gt;</button>
+      <button className="btn" onClick={nextDate} aria-label="Select next date">&gt;</button>
     </h2>
 
     <ul id="logEntries" className={styles.logEntries}>
-      {visibleLogEntries.map((logEntry, index) => {
+      {visibleLogEntries.reduce((liElements, logEntry, index) => {
         let breakDuration = 0;
 
         if (index > 0) {
@@ -122,27 +122,29 @@ export default function LogEntries(props: LogEntriesProps) {
           breakDuration = currentEntryStartTime - prevEntryEndTime;
         }
 
-        return <>
-          {breakDuration > 0 ?
-          <li key={`${logEntry.id}-2`} className={styles.logEntryBreak}>
+        if (breakDuration > 0) {
+          liElements.push(<li key={`${logEntry.id}-2`} className={styles.logEntryBreak}>
             <button className={styles.logEntryExtendUp} onClick={() => entryExtendUpHandler(logEntry.id, visibleLogEntries[index - 1].endTime)}>↥</button>
             <button className={styles.logEntryExtendDown} onClick={() => entryExtendDownHandler(visibleLogEntries[index - 1].id, logEntry.startTime)}>↧</button>
             <span>~ {breakDuration} minutes ~</span>
-          </li> : null }
-          <li key={logEntry.id} className={styles.logEntry}>
-            <input className={styles.logEntryHours} id={`log-entry-start-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.hours || 0} />
-            <input className={styles.logEntryMinutes} id={`log-entry-start-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.minutes || 0} />
-            &nbsp;-&nbsp;
-            <input className={styles.logEntryHours} id={`log-entry-end-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.hours || 0} />
-            <input className={styles.logEntryMinutes} id={`log-entry-end-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.minutes || 0} />
-            &nbsp;
-            <span className={styles.logEntryProject}>{typeof logEntry.project === 'string' ? logEntry.project : ''}</span>
-            <input className={styles.logEntryDescription} id={`log-entry-description-${logEntry.id}`} type="text" placeholder="Description" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.description} />
-            <button className={styles.logEntryDelete} onClick={() => deleteLogEntryHandler(logEntry.id)}>&times;</button>
-            <button className={styles.logEntryDuplicate} onClick={() => duplicateLogEntryHandler(logEntry.id)}>+</button>
-          </li>
-        </>
-      })}
+          </li>);
+        }
+
+        liElements.push(<li key={logEntry.id} className={styles.logEntry}>
+          <input className={styles.logEntryHours} id={`log-entry-start-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.hours || 0} />
+          <input className={styles.logEntryMinutes} id={`log-entry-start-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.minutes || 0} />
+          &nbsp;-&nbsp;
+          <input className={styles.logEntryHours} id={`log-entry-end-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.hours || 0} />
+          <input className={styles.logEntryMinutes} id={`log-entry-end-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.minutes || 0} />
+          &nbsp;
+          <span className={styles.logEntryProject}>{typeof logEntry.project === 'string' ? logEntry.project : ''}</span>
+          <input className={styles.logEntryDescription} id={`log-entry-description-${logEntry.id}`} type="text" placeholder="Description" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.description} />
+          <button className={styles.logEntryDelete} onClick={() => deleteLogEntryHandler(logEntry.id)}>&times;</button>
+          <button className={styles.logEntryDuplicate} onClick={() => duplicateLogEntryHandler(logEntry.id)}>+</button>
+        </li>);
+
+        return liElements;
+      }, [] as ReactElement[]).join()}
     </ul>
 
     {visibleLogEntries.length ? <button className="btn" onClick={() => props.endCurrentTask(true)}>End current task</button> : null}
