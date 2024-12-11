@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders title', () => {
+test('renders correct title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Time Tracker/i);
-  expect(linkElement).toBeInTheDocument();
+  const h1 = screen.getByRole('heading', { level: 1 });
+  expect(h1.innerHTML).toContain('Time Tracker');
 });
