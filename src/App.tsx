@@ -35,7 +35,7 @@ function App() {
   return <>
     <div className="App">
       <header className="App-header">
-        <h1>Time Tracker</h1>
+        <h1>Time Trackers</h1>
       </header>
       <section>
         <ProjectButtons projects={projects} endCurrentTask={endCurrentTask} setLogEntries={setLogEntries} />
