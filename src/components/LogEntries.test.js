@@ -76,7 +76,7 @@ test('changes date correctly', async () => {
   await screen.findAllByText(new Date().toDateString());
 });
 
-test('renders entry row correctly', async () => {
+test('renders text inputs for log entries', async () => {
   render(<LogEntries
     logEntries={mockEntries}
     endCurrentTask={() => null}
@@ -84,4 +84,8 @@ test('renders entry row correctly', async () => {
   />);
 
   screen.getAllByRole('textbox');
+
+  // Expect there to be as many entry rows as in the mock data
+  const entryDescriptions = screen.getAllByRole('textbox', { name: 'Entry description' });
+  expect(entryDescriptions).toHaveLength(mockEntries.length);
 });

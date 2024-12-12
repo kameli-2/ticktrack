@@ -22,6 +22,7 @@ export function createLogEntry(projectName: string) {
   entry.id = getEntryId(entry);
   logEntries.push(entry);
   window.localStorage.setItem('logEntries', JSON.stringify(logEntries));
+  return entry.id;
 }
 
 export function getLogEntries(): LogEntry[] {
@@ -80,6 +81,10 @@ export function getTimeInMinutes(time: Time | undefined) {
 }
 
 export function updateTimeInputs(id: number, time: Time, type: 'start' | 'end') {
-  (document.getElementById(`log-entry-${type}-time-hours-${id}`) as HTMLInputElement).value = String(time.hours);
-  (document.getElementById(`log-entry-${type}-time-minutes-${id}`) as HTMLInputElement).value = String(time.minutes);
+  const hoursElement = document.getElementById(`log-entry-${type}-time-hours-${id}`) as HTMLInputElement;
+  const minutesElement = document.getElementById(`log-entry-${type}-time-minutes-${id}`) as HTMLInputElement;
+  if (hoursElement && minutesElement) {
+    hoursElement.value = String(time.hours);
+    minutesElement.value = String(time.minutes);
+  }
 }

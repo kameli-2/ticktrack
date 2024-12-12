@@ -82,10 +82,10 @@ export default function LogEntries(props: LogEntriesProps) {
   }
 
   function duplicateLogEntryHandler(id: number) {
+    setShowDate(new Date());
     props.endCurrentTask();
     duplicateLogEntry(id);
     setLogEntries(getLogEntries());
-    setShowDate(new Date());
   }
 
   function entryExtendUpHandler(id: number, newStartTime: Time | undefined) {
@@ -131,16 +131,16 @@ export default function LogEntries(props: LogEntriesProps) {
         }
 
         liElements.push(<li key={logEntry.id} className={styles.logEntry}>
-          <input className={styles.logEntryHours} id={`log-entry-start-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.hours || 0} />
-          <input className={styles.logEntryMinutes} id={`log-entry-start-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.minutes || 0} />
+          <input aria-label="Entry start time hours" className={styles.logEntryHours} id={`log-entry-start-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.hours || 0} />
+          <input aria-label="Entry start time minutes" className={styles.logEntryMinutes} id={`log-entry-start-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.startTime?.minutes || 0} />
           &nbsp;-&nbsp;
-          <input className={styles.logEntryHours} id={`log-entry-end-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.hours || 0} />
-          <input className={styles.logEntryMinutes} id={`log-entry-end-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.minutes || 0} />
+          <input aria-label="Entry end time hours" className={styles.logEntryHours} id={`log-entry-end-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.hours || 0} />
+          <input aria-label="Entry end time minutes" className={styles.logEntryMinutes} id={`log-entry-end-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.minutes || 0} />
           &nbsp;
           <span className={styles.logEntryProject}>{typeof logEntry.project === 'string' ? logEntry.project : ''}</span>
-          <input className={styles.logEntryDescription} id={`log-entry-description-${logEntry.id}`} type="text" placeholder="Description" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.description} />
-          <button className={styles.logEntryDelete} onClick={() => deleteLogEntryHandler(logEntry.id)}>&times;</button>
-          <button className={styles.logEntryDuplicate} onClick={() => duplicateLogEntryHandler(logEntry.id)}>+</button>
+          <input aria-label="Entry description" className={styles.logEntryDescription} id={`log-entry-description-${logEntry.id}`} type="text" placeholder="Description" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.description} />
+          <button aria-label="Delete entry" className={styles.logEntryDelete} onClick={() => deleteLogEntryHandler(logEntry.id)}>&times;</button>
+          <button aria-label="Duplicate entry" className={styles.logEntryDuplicate} onClick={() => duplicateLogEntryHandler(logEntry.id)}>+</button>
         </li>);
 
         return liElements;
