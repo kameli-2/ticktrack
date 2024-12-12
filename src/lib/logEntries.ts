@@ -88,3 +88,15 @@ export function updateTimeInputs(id: number, time: Time, type: 'start' | 'end') 
     minutesElement.value = String(time.minutes);
   }
 }
+
+function extractJiraId(logEntry: { project?: string, description?: string }) {
+  if (!logEntry.project || !logEntry.description) return null;
+  const ticketId = logEntry.description?.match(/^\s?[0-9]+/);
+  if (ticketId) return ticketId;
+  return null;
+}
+
+export function formatEntryKey(logEntry: { project?: string, description?: string }) {
+  if (extractJiraId(logEntry)) return `${logEntry.project}-${logEntry.description}`;
+  return [logEntry.project, logEntry.description].filter(Boolean).join(' / ');
+}
