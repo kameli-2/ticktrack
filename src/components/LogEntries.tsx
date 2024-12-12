@@ -144,7 +144,7 @@ export default function LogEntries(props: LogEntriesProps) {
         </li>);
 
         return liElements;
-      }, [] as ReactElement[]).join()}
+      }, [] as ReactElement[])}
     </ul>
 
     {visibleLogEntries.length ? <button className="btn" onClick={() => props.endCurrentTask(true)}>End current task</button> : null}
