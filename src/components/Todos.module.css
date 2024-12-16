@@ -61,6 +61,7 @@
   padding-bottom: 0.45rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  background-color: #eee;
 }
 
 .todoListItem button,
