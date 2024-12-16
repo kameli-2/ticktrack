@@ -25,8 +25,8 @@ export default function Todos() {
 
   return <>
     <section>
-      <button className="btn" onClick={createTodoHandler}>Create new</button>&nbsp;
-      <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>Clear done todos</button>
+      <button className={`btn ${styles.todoListCreateNewTodo}`} onClick={createTodoHandler}>+ Create new todo</button>&nbsp;
+      <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>&times; Clear done todos</button>
     </section>
     {todos.length > 0 ?
       <ul className={styles.todoList}>

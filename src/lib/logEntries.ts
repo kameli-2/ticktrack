@@ -98,5 +98,5 @@ function extractJiraId(logEntry: { project?: string, description?: string }) {
 
 export function formatEntryKey(logEntry: { project?: string, description?: string }) {
   if (extractJiraId(logEntry)) return `${logEntry.project}-${logEntry.description}`;
-  return [logEntry.project, logEntry.description].filter(Boolean).join(' / ');
+  return [logEntry.project, logEntry.description].filter(Boolean).join(' / ') || '(no description)';
 }

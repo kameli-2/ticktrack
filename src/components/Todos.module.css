@@ -7,6 +7,14 @@
   background-color: var(--color-danger-hover);
 }
 
+.todoListCreateNewTodo {
+  background-color: var(--color-add);
+}
+
+.todoListCreateNewTodo:hover {
+  background-color: var(--color-add-hover);
+}
+
 .todoList {
   list-style: none;
   padding: 0;
