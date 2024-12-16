@@ -1,0 +1,91 @@
+.todoListClearDoneTodos {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+.todoListClearDoneTodos:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.todoList {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem;
+}
+
+.todoList > * {
+  flex-grow: 1;
+}
+
+.todoListItem {
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0;
+}
+
+.todoListItem--done .todoListItemDescription {
+  text-decoration: line-through;
+}
+
+.todoListItemProject,
+.todoListItemDescription {
+  font-size: .9rem;
+  line-height: 1rem;
+  border-radius: var(--border-radius);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+}
+
+.todoListItemDescription {
+  flex-grow: 2;
+  text-align: left;
+}
+
+.todoListItemProject + .todoListItemDescription {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.todoListItemProject {
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.todoListItem button,
+.todoListItemCheckbox {
+  font-size: .9rem;
+  line-height: 1rem;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  vertical-align: middle;
+  box-shadow: none;
+}
+
+.todoListItemActionButtons button {
+  margin-left: -1px;
+}
+
+.todoListItemCheckbox {
+  --size: 2.1rem;
+  height: var(--size);
+  width: var(--size);
+
+}
+
+button.todoListItemDelete {
+  background-color: var(--color-danger);
+  color: #fff;
+  min-width: 1.5rem;
+  border-radius: var(--border-radius);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.todoListItemDelete:hover {
+  background-color: var(--color-danger-hover);
+}

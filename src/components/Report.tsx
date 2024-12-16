@@ -1,5 +1,5 @@
 import styles from './Report.module.css'
-import { getTimeInMinutes } from '../lib/logEntries'
+import { formatEntryKey, getTimeInMinutes } from '../lib/logEntries'
 import type { LogEntry } from '../lib/logEntries';
 
 type ReportProps = {
@@ -21,17 +21,6 @@ function formatExactTime(minutes: number) {
 export default function Report(props: ReportProps) {
   const { logEntries } = props;
 
-  function extractJiraId(logEntry: LogEntry) {
-    const ticketId = logEntry.description?.match(/^\s?[0-9]+/);
-    if (ticketId) return ticketId;
-    return null;
-  }
-
-  function formatEntryKey(logEntry: LogEntry) {
-    if (extractJiraId(logEntry)) return `${logEntry.project}-${logEntry.description}`;
-    return `${logEntry.project} / ${logEntry.description}`;
-  }
-
   function getDuration(logEntry: LogEntry) {
     const duration = getTimeInMinutes(logEntry.endTime) - getTimeInMinutes(logEntry.startTime);
     if (isNaN(duration) || duration < 0) return 0;
@@ -39,7 +28,7 @@ export default function Report(props: ReportProps) {
   }
 
   const report = logEntries.reduce((report, logEntry) => {
-    const entryKey = formatEntryKey(logEntry);
+    const entryKey = formatEntryKey({ project: logEntry.project, description: logEntry.description });
     const duration = getDuration(logEntry);
 
     if (report.get(entryKey)) {
