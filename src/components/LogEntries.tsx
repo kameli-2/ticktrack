@@ -102,6 +102,11 @@ export default function LogEntries(props: LogEntriesProps) {
     updateTimeInputs(id, newEndTime, 'end');
   }
 
+  function currentTaskEndHandler() {
+    endCurrentTask(getLogEntries(), true);
+    setLogEntries(getLogEntries());
+  }
+
   return <>
     <h2 className={styles.logEntryHeader}>
       <button className="btn" onClick={prevDate} aria-label="Select previous date">&lt;</button>
@@ -147,7 +152,7 @@ export default function LogEntries(props: LogEntriesProps) {
       }, [] as ReactElement[])}
     </ul>
 
-    {visibleLogEntries.length ? <button className="btn" onClick={() => endCurrentTask(getLogEntries(), true)}>End current task</button> : null}
+    {visibleLogEntries.length ? <button className="btn" onClick={currentTaskEndHandler}>End current task</button> : null}
 
     {visibleLogEntries.length ? <Report logEntries={visibleLogEntries} /> : <p className="notification">No entries</p>}
   </>
