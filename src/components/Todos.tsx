@@ -2,8 +2,9 @@ import { useState } from "react";
 import { changeTodoOrder, createTodo, deleteTodo, getTodos, updateTodo, clearDoneTodos } from "../lib/todos";
 import type { Todo } from "../lib/todos";
 import { getProjects } from "../lib/projects";
-import { formatEntryKey } from "../lib/logEntries";
+import { createLogEntry, endCurrentTask, formatEntryKey, updateLogEntry } from "../lib/logEntries";
 import styles from './Todos.module.css'
+import { useNavigate } from "react-router-dom";
 
 export default function Todos() {
   const [todos, setTodos] = useState(getTodos());
@@ -39,6 +40,7 @@ export default function Todos() {
 
 function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
   const { todo, setTodos } = props;
+  const navigate = useNavigate();
 
   function todoUpdateHandler(id: number, data: Partial<Todo>) {
     updateTodo(id, data);
@@ -55,6 +57,14 @@ function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
   function todoOrderChangeHandler(id: number, mode: 'top' | 'up' | 'down' | 'bottom') {
     changeTodoOrder(id, mode);
     setTodos(getTodos());
+  }
+
+  function exportToTimeTrackerHandler(id: number) {
+    if (!todo.project) return;
+    endCurrentTask();
+    const logEntryId = createLogEntry(todo.project);
+    updateLogEntry(logEntryId, { description: todo.description });
+    navigate('/');
   }
 
   const projects = getProjects();
@@ -88,6 +98,7 @@ function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
       />
     </> : <span className={styles.todoListItemDescription}>{formatEntryKey({ project: todo.project, description: todo.description })}</span>}
     {todo.status === 'todo' ? <div className={styles.todoListItemActionButtons}>
+      { todo.project ? <button className={styles.exportToTimeTracker} aria-label="Start working on this todo" onClick={(e) => exportToTimeTrackerHandler(todo.id)}>&rarr;</button> : null}
       <button className="btn" aria-label="Move todo item top" onClick={(e) => todoOrderChangeHandler(todo.id, 'top')}>&#8648;</button>
       <button className="btn" aria-label="Move todo item up" onClick={(e) => todoOrderChangeHandler(todo.id, 'up')}>&uarr;</button>
       <button className="btn" aria-label="Move todo item down" onClick={(e) => todoOrderChangeHandler(todo.id, 'down')}>&darr;</button>

@@ -82,7 +82,19 @@
   --size: 2.1rem;
   height: var(--size);
   width: var(--size);
+  position: relative;
+}
 
+.todoListItem:not(.todoListItem--done) .todoListItemCheckbox:hover::before {
+  content: '\2713';
+  color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 100%;
+  padding-top: 0.25rem;
 }
 
 button.todoListItemDelete {
@@ -97,4 +109,12 @@ button.todoListItemDelete {
 
 .todoListItemDelete:hover {
   background-color: var(--color-danger-hover);
+}
+
+.exportToTimeTracker {
+  background-color: var(--color-add);
+}
+
+.exportToTimeTracker:hover {
+  background-color: var(--color-add-hover);
 }
