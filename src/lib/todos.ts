@@ -55,6 +55,11 @@ export function deleteTodo(id: number) {
   window.localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+export function clearDoneTodos() {
+  const todos = getTodos().filter(todo => todo.status !== 'done');
+  window.localStorage.setItem('todos', JSON.stringify(todos));
+}
+
 export function updateTodo(id: number, newData: Partial<Todo>) {
   const todos = getTodos();
   const todo = todos.find(todo => todo.id === id);
