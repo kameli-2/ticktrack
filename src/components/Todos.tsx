@@ -24,7 +24,6 @@ export default function Todos() {
   const todosDone = todos.filter(todo => todo.status === 'done').sort((a, b) => a.order - b.order);
 
   return <>
-    <h2>Todos</h2>
     <button className="btn" onClick={createTodoHandler}>Create new</button>&nbsp;
     <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>Clear done todos</button>
     {todos.length > 0 ?
