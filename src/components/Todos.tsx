@@ -24,14 +24,16 @@ export default function Todos() {
   const todosDone = todos.filter(todo => todo.status === 'done').sort((a, b) => a.order - b.order);
 
   return <>
-    <button className="btn" onClick={createTodoHandler}>Create new</button>&nbsp;
-    <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>Clear done todos</button>
+    <section>
+      <button className="btn" onClick={createTodoHandler}>Create new</button>&nbsp;
+      <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>Clear done todos</button>
+    </section>
     {todos.length > 0 ?
       <ul className={styles.todoList}>
         {todosNotDone.map(todo => <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />)}
         {todosDone.map(todo => <TodoItem todo={todo} setTodos={setTodos} />)}
       </ul>
-    : <p>No todos</p>}
+    : <p className="notification">No todos</p>}
   </>
 }
 
