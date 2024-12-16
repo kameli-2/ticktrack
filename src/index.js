@@ -8,10 +8,11 @@ import App from './App';
 import Todos from './Todos';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <div className="App">
     <BrowserRouter>
-      <Navigation selected="/" />
+      <Navigation />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/todo" element={<Todos />} />
