@@ -1,13 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import App from './App';
-import { createLogEntry, updateLogEntry } from './lib/logEntries';
-import { wait } from '@testing-library/user-event/dist/utils';
-
-test('renders correct title', () => {
-  render(<App />);
-  const h1 = screen.getByRole('heading', { level: 1 });
-  expect(h1.innerHTML).toContain('Time Tracker');
-});
 
 test('duplicating a task from yesterday when there is one ongoing task today', async () => {
   // Create mock data

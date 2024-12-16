@@ -10,7 +10,6 @@ import {
   getTimeInMinutes,
   updateTimeInputs
 } from './lib/logEntries';
-import Navigation from './components/Navigation';
 
 function App() {
   const [logEntries, setLogEntries] = useState(getLogEntries());
@@ -34,18 +33,12 @@ function App() {
 
   const projects = getProjects()
   return <>
-    <div className="App">
-      <header className="App-header">
-        <h1>Time Tracker</h1>
-        <Navigation selected="/" />
-      </header>
-      <section>
-        <ProjectButtons projects={projects} endCurrentTask={endCurrentTask} setLogEntries={setLogEntries} />
-      </section>
-      <section>
-        <LogEntries endCurrentTask={endCurrentTask} logEntries={logEntries} setLogEntries={setLogEntries} />
-      </section>
-    </div>
+    <section>
+      <ProjectButtons projects={projects} endCurrentTask={endCurrentTask} setLogEntries={setLogEntries} />
+    </section>
+    <section>
+      <LogEntries endCurrentTask={endCurrentTask} logEntries={logEntries} setLogEntries={setLogEntries} />
+    </section>
   </>
 }
 

@@ -20,10 +20,13 @@ export default function Navigation(props: { selected: string }) {
       name: "Todos",
     }
   ];
-  
-  pages.forEach(page => page.selected = page.path === selected );
 
-  return <nav className={styles.navigation}>
-    {pages.filter(page => !page.selected).map(page => <Link key={page.name} to={page.path}>{page.name}</Link>)}
-  </nav>
+  pages.forEach(page => page.selected = page.path === selected);
+
+  return <header className="App-header">
+    <h1>Time Tracker</h1>
+    <nav className={styles.navigation}>
+      {pages.filter(page => !page.selected).map(page => <Link key={page.name} to={page.path}>{page.name}</Link>)}
+    </nav>
+  </header>
 }
