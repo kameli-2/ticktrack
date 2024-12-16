@@ -47,6 +47,22 @@ export function getLogEntry(id: number): LogEntry | undefined {
   return logEntries.find(entry => entry.id === id);
 }
 
+export function endCurrentTask(logEntries = getLogEntries(), force = false) {
+  const currentEntry = logEntries
+    .filter(({ created }) => new Date(created).toDateString() === new Date().toDateString())
+    .sort((b, a) => getTimeInMinutes(a.startTime) - getTimeInMinutes(b.startTime))
+    [0];
+
+  if (!currentEntry) return;
+  if (!force && getTimeInMinutes(currentEntry.endTime) > 0) return;
+
+  const endTime = getHoursAndMinutes();
+  updateLogEntry(currentEntry.id, { endTime });
+
+  const { id } = currentEntry;
+  updateTimeInputs(id, endTime, 'end');
+}
+
 export function getHoursAndMinutes(date = new Date()): Time {
   return {
     hours: date.getHours(),

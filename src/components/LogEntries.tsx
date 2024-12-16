@@ -6,7 +6,8 @@ import {
   updateLogEntry,
   duplicateLogEntry,
   getTimeInMinutes,
-  updateTimeInputs
+  updateTimeInputs,
+  endCurrentTask,
 } from '../lib/logEntries';
 import type { LogEntry, Time } from '../lib/logEntries';
 import Report from './Report'
@@ -14,7 +15,6 @@ import Report from './Report'
 type LogEntriesProps = {
   logEntries: LogEntry[],
   setLogEntries: (logEntries: LogEntry[]) => void,
-  endCurrentTask: (force?: boolean) => void,
 }
 
 export default function LogEntries(props: LogEntriesProps) {
@@ -83,7 +83,7 @@ export default function LogEntries(props: LogEntriesProps) {
 
   function duplicateLogEntryHandler(id: number) {
     setShowDate(new Date());
-    props.endCurrentTask();
+    endCurrentTask();
     duplicateLogEntry(id);
     setLogEntries(getLogEntries());
   }
@@ -147,7 +147,7 @@ export default function LogEntries(props: LogEntriesProps) {
       }, [] as ReactElement[])}
     </ul>
 
-    {visibleLogEntries.length ? <button className="btn" onClick={() => props.endCurrentTask(true)}>End current task</button> : null}
+    {visibleLogEntries.length ? <button className="btn" onClick={() => endCurrentTask(getLogEntries(), true)}>End current task</button> : null}
 
     {visibleLogEntries.length ? <Report logEntries={visibleLogEntries} /> : <p className="notification">No entries</p>}
   </>

@@ -1,13 +1,12 @@
 import styles from './ProjectButtons.module.css';
 import { createProject, getProjects, deleteProject } from '../lib/projects'
 import type { Project } from '../lib/projects'
-import { createLogEntry, getLogEntries } from '../lib/logEntries';
+import { createLogEntry, endCurrentTask, getLogEntries } from '../lib/logEntries';
 import type { LogEntry } from '../lib/logEntries';
 import { useState } from 'react';
 
 type ProjectButtonsProps = {
   projects: Project[],
-  endCurrentTask: (force?: boolean) => void,
   setLogEntries: (logEntries: LogEntry[]) => void,
 }
 
@@ -29,7 +28,7 @@ export default function ProjectButtons(props: ProjectButtonsProps) {
   }
 
   function createLogEntryHandler(projectName: string) {
-    props.endCurrentTask();
+    endCurrentTask();
     createLogEntry(projectName);
     props.setLogEntries(getLogEntries());
   }
