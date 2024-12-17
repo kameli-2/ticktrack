@@ -1,4 +1,18 @@
-.navigation {
-  margin-bottom: 1rem;
+.tabs {
   font-size: 1rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tab {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.5rem;
+}
+
+.tab--selected, .tab:hover {
+  background-color: var(--color-button);
 }
