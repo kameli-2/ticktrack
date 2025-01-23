@@ -75,21 +75,40 @@ export function getTodo(id: number): Todo | undefined {
 }
 
 export function changeTodoOrder(id: number, mode: 'top' | 'up' | 'down' | 'bottom') {
-  const currentOrder = getTodo(id)?.order || 0;
+  const todo = getTodo(id);
+  if (!todo) return;
+
+  const currentOrder = todo.order || 0;
   let order = 0;
 
   switch (mode) {
     case "top":
       order = -1;
       break;
-    case "up":
-      order = currentOrder - 1.5;
-      break;
-    case "down":
-      order = currentOrder + 1.5;
-      break;
     case "bottom":
       order = Number.MAX_SAFE_INTEGER;
+      break;
+    case "up":
+      // Get all todos above the target todo
+      const previousTodos = getTodos().filter(prevTodo => prevTodo.status === todo.status && prevTodo.order < currentOrder);
+      if (!previousTodos) return; // Already on top
+
+      // Get order number of the todo closest to the target todo
+      const previousTodoOrderNumber = previousTodos.reduce((smallestOrder, previousTodo) => Math.max(smallestOrder, previousTodo.order), -1);
+
+      // Put target todo slightly above the previous todo
+      order = previousTodoOrderNumber - 0.5;
+      break;
+    case "down":
+      // Get all todos below the target todo
+      const nextTodos = getTodos().filter(nextTodo => nextTodo.status === todo.status && nextTodo.order > currentOrder);
+      if (!nextTodos) return; // Already on bottom
+
+      // Get order number of the todo closest to the target todo
+      const nextTodoOrderNumber = nextTodos.reduce((greatestOrder, nextTodo) => Math.min(greatestOrder, nextTodo.order), Number.MAX_SAFE_INTEGER);
+
+      // Put target todo slightly below the next todo
+      order = nextTodoOrderNumber + 0.5;
       break;
   }
 
