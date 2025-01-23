@@ -21,19 +21,24 @@ export default function Todos() {
     }
   }
 
-  const todosNotDone = todos.filter(todo => todo.status !== 'done').sort((a, b) => a.order - b.order);
-  const todosDone = todos.filter(todo => todo.status === 'done').sort((a, b) => a.order - b.order);
-
   return <>
     <section>
       <button className={`btn ${styles.todoListCreateNewTodo}`} onClick={createTodoHandler}>+ Create new todo</button>&nbsp;
       <button className={`btn ${styles.todoListClearDoneTodos}`} onClick={clearTodosHandler}>&times; Clear done todos</button>
     </section>
     {todos.length > 0 ?
-      <ul className={styles.todoList}>
-        {todosNotDone.map(todo => <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />)}
-        {todosDone.map(todo => <TodoItem todo={todo} setTodos={setTodos} />)}
-      </ul>
+      ['todo', 'waiting', 'done'].map( // Group by status, show 'todo' first, 'waiting' second, 'done' third
+        status => <>
+        <h3>{status.charAt(0).toUpperCase()}{status.substring(1)}</h3>
+        <ul className={styles.todoList}>
+          {todos
+            .filter(todo => todo.status === status)
+            .sort((a, b) => a.order - b.order) // Sort todo's inside a status group by order number
+            .map(todo => <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />)
+          }
+        </ul>
+        </>
+      )
     : <p className="notification">No todos</p>}
   </>
 }
@@ -46,7 +51,7 @@ function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
     updateTodo(id, data);
     setTodos(getTodos());
   }
-  
+
   function deleteTodoHandler(id: number) {
     if (window.confirm('Are you sure you want to delete this todo item?')) {
       deleteTodo(id);
@@ -82,7 +87,7 @@ function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
       aria-label="Mark as done"
       onChange={(e) => todoUpdateHandler(todo.id, { status: e.currentTarget.checked ? 'done' : 'todo' })}
     />
-    {todo.status === 'todo' ? <>
+    {todo.status !== 'done' ? <>
       <select className={styles.todoListItemProject} defaultValue={todo.project} onChange={(e) => todoUpdateHandler(todo.id, { project: e.currentTarget.value })}>
         <option key="no-project-selected" value="">- no project selected -</option>
         {projects.map(project =>
@@ -97,8 +102,10 @@ function TodoItem(props: { todo: Todo, setTodos: (todos: Todo[]) => void }) {
         onChange={(e) => todoUpdateHandler(todo.id, { description: e.currentTarget.value })}
       />
     </> : <span className={styles.todoListItemDescription}>{formatEntryKey({ project: todo.project, description: todo.description })}</span>}
-    {todo.status === 'todo' ? <div className={styles.todoListItemActionButtons}>
-      { todo.project ? <button className={styles.exportToTimeTracker} aria-label="Start working on this todo" onClick={(e) => exportToTimeTrackerHandler(todo.id)}>&rarr;</button> : null}
+    {todo.status !== 'done' ? <div className={styles.todoListItemActionButtons}>
+      {todo.project ? <button className={styles.exportToTimeTracker} aria-label="Start working on this todo" onClick={(e) => exportToTimeTrackerHandler(todo.id)}>&rarr;</button> : null}
+      {todo.status === 'todo' ? <button className="btn" aria-label="Put item in waiting status" onClick={(e) => todoUpdateHandler(todo.id, { status: 'waiting' })}>&#x23F8;</button> : null}
+      {todo.status === 'waiting' ? <button className="btn" aria-label="Put item in todo status" onClick={(e) => todoUpdateHandler(todo.id, { status: 'todo' })}>&#x23F5;</button> : null}
       <button className="btn" aria-label="Move todo item top" onClick={(e) => todoOrderChangeHandler(todo.id, 'top')}>&#8648;</button>
       <button className="btn" aria-label="Move todo item up" onClick={(e) => todoOrderChangeHandler(todo.id, 'up')}>&uarr;</button>
       <button className="btn" aria-label="Move todo item down" onClick={(e) => todoOrderChangeHandler(todo.id, 'down')}>&darr;</button>

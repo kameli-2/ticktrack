@@ -5,7 +5,7 @@ export type Todo = {
   id: number,
   order: number,
   deadline?: Date,
-  status: 'done' | 'todo'
+  status: 'done' | 'todo' | 'waiting'
 }
 
 export function createTodo() {
