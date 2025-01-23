@@ -77,6 +77,7 @@
 }
 
 .logEntryBreak {
+  position: relative;
   color: #555;
   font-size: 0.75rem;
   text-shadow: 0 0 3px #fff;
@@ -85,12 +86,16 @@
 .logEntryExtendUp,
 .logEntryExtendDown {
   border: 1px solid var(--color-border);
+  border-top: 0;
+  border-bottom: 0;
   padding: 0.25rem 0.25rem;
   margin: -0.3rem 0;
-  left: 3.25rem;
+  height: 1.45rem;
+  top: 1px;
+  left: 2.8rem;
   position: absolute;
 }
 
 .logEntryExtendDown {
-  left: 11rem;
+  left: 10.5rem;
 }
