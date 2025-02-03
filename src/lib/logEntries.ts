@@ -1,3 +1,5 @@
+const LOCALSTORAGE_ITEM_KEY = 'logEntries';
+
 export type Time = {
   hours: string | number,
   minutes: string | number,
@@ -12,26 +14,26 @@ export type LogEntry = {
   id: number,
 }
 
-export function createLogEntry(projectName: string) {
+export function createLogEntry(projectName: string | LogEntry) {
   const logEntries = getLogEntries();
-  const entry = {
+  const entry = typeof projectName === 'string' ? {
     project: projectName,
     created: new Date(),
     startTime: getHoursAndMinutes()
-  } as LogEntry;
+  } as LogEntry : projectName; // If projectName is not string, it's a full LogEntry object
   entry.id = getEntryId(entry);
   logEntries.push(entry);
-  window.localStorage.setItem('logEntries', JSON.stringify(logEntries));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(logEntries));
   return entry.id;
 }
 
 export function getLogEntries(): LogEntry[] {
-  return JSON.parse(window.localStorage.getItem('logEntries') || '[]')
+  return JSON.parse(window.localStorage.getItem(LOCALSTORAGE_ITEM_KEY) || '[]')
 }
 
 export function deleteLogEntry(id: number) {
   const logEntries = getLogEntries().filter(entry => entry.id !== id);
-  window.localStorage.setItem('logEntries', JSON.stringify(logEntries));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(logEntries));
 }
 
 export function updateLogEntry(id: number, newData: Partial<LogEntry>) {
@@ -39,7 +41,7 @@ export function updateLogEntry(id: number, newData: Partial<LogEntry>) {
   const entry = logEntries.find(entry => entry.id === id);
   if (!entry) return;
   Object.assign(entry, newData);
-  window.localStorage.setItem('logEntries', JSON.stringify(logEntries));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(logEntries));
 }
 
 export function getLogEntry(id: number): LogEntry | undefined {
@@ -85,7 +87,7 @@ export function duplicateLogEntry(id: number) {
 
   const logEntries = getLogEntries();
   logEntries.push(newEntry);
-  window.localStorage.setItem('logEntries', JSON.stringify(logEntries));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(logEntries));
 }
 
 export function getEntryId(entry: LogEntry) {
@@ -115,4 +117,15 @@ function extractJiraId(logEntry: { project?: string, description?: string }) {
 export function formatEntryKey(logEntry: { project?: string, description?: string }) {
   if (extractJiraId(logEntry)) return `${logEntry.project}-${logEntry.description}`;
   return [logEntry.project, logEntry.description].filter(Boolean).join(' / ') || '(no description)';
+}
+
+export function importLogEntries(logEntries: LogEntry[], overwrite = false) {
+  if (overwrite) window.localStorage.removeItem(LOCALSTORAGE_ITEM_KEY);
+
+  const existingEntries = getLogEntries();
+  logEntries.forEach(logEntry => {
+    if (existingEntries.every(existingEntry => existingEntry.id !== logEntry.id)) {
+      createLogEntry(logEntry);
+    }
+  });
 }

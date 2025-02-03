@@ -1,3 +1,5 @@
+const LOCALSTORAGE_ITEM_KEY = 'todos';
+
 export type Todo = {
   project?: string,
   description?: string,
@@ -8,22 +10,26 @@ export type Todo = {
   status: 'done' | 'todo' | 'waiting'
 }
 
-export function createTodo() {
+export function createTodo(todo?: Todo) {
   const todos = getTodos();
-  const todo = {
-    created: new Date(),
-    order: getNextOrder(),
-    status: 'todo',
-  } as Todo;
-  todo.id = getTodoId(todo);
+
+  if (!todo) {
+    todo = {
+      created: new Date(),
+      order: getNextOrder(),
+      status: 'todo',
+    } as Todo;
+    todo.id = getTodoId(todo);
+  }
+
   todos.push(todo);
   rebuildTodoOrdering(todos);
-  window.localStorage.setItem('todos', JSON.stringify(todos));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(todos));
   return todo.id;
 }
 
 export function getTodos(): Todo[] {
-  return JSON.parse(window.localStorage.getItem('todos') || '[]')
+  return JSON.parse(window.localStorage.getItem(LOCALSTORAGE_ITEM_KEY) || '[]')
 }
 
 function getNextOrder() {
@@ -52,12 +58,12 @@ export function getTodoId(todo: Todo) {
 
 export function deleteTodo(id: number) {
   const todos = getTodos().filter(todo => todo.id !== id);
-  window.localStorage.setItem('todos', JSON.stringify(todos));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(todos));
 }
 
 export function clearDoneTodos() {
   const todos = getTodos().filter(todo => todo.status !== 'done');
-  window.localStorage.setItem('todos', JSON.stringify(todos));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(todos));
 }
 
 export function updateTodo(id: number, newData: Partial<Todo>) {
@@ -66,7 +72,7 @@ export function updateTodo(id: number, newData: Partial<Todo>) {
   if (!todo) return;
   Object.assign(todo, newData);
   if (Object.keys(newData).includes('order')) rebuildTodoOrdering(todos);
-  window.localStorage.setItem('todos', JSON.stringify(todos));
+  window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(todos));
 }
 
 export function getTodo(id: number): Todo | undefined {
@@ -113,4 +119,15 @@ export function changeTodoOrder(id: number, mode: 'top' | 'up' | 'down' | 'botto
   }
 
   updateTodo(id, { order });
+}
+
+export function importTodos(todos: Todo[], overwrite = false) {
+  if (overwrite) window.localStorage.removeItem(LOCALSTORAGE_ITEM_KEY);
+  
+  const existingTodos = getTodos();
+  todos.forEach(todo => {
+    if (existingTodos.every(existingTodo => existingTodo.id !== todo.id)) {
+      createTodo(todo);
+    }
+  });
 }

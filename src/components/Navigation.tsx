@@ -20,6 +20,10 @@ export default function Navigation() {
     {
       path: "/todo",
       name: "Todos",
+    },
+    {
+      path: "/settings",
+      name: "Settings",
     }
   ];
 
@@ -28,7 +32,7 @@ export default function Navigation() {
   return <header className="App-header">
     <h1>TickTrack</h1>
     <Tabs>
-      {pages.map(page => <Tab selected={page.selected} path={page.path} name={page.name} />)}
+      {pages.map((page, index) => <Tab key={index} selected={page.selected} path={page.path} name={page.name} />)}
     </Tabs>
   </header>
 }
