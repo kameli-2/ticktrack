@@ -1,5 +1,13 @@
-.logEntryHeader button {
+.dateSelectors button {
   margin: 0 2rem;
+}
+
+.selectPreviousDate {
+  float: left;
+}
+
+.selectNextDate {
+  float: right;
 }
 
 .logEntries {

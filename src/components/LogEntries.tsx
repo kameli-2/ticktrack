@@ -29,6 +29,10 @@ export default function LogEntries(props: LogEntriesProps) {
     setShowDate(new Date(+showDate + 1000 * 60 * 60 * 24));
   }
 
+  function currentDate() {
+    setShowDate(new Date());
+  }
+
   const visibleLogEntries = logEntries
     .filter(({ created }) => new Date(created).toDateString() === showDate.toDateString())
     .sort((a, b) => getTimeInMinutes(a.startTime) - getTimeInMinutes(b.startTime));
@@ -108,12 +112,14 @@ export default function LogEntries(props: LogEntriesProps) {
   }
 
   return <>
+    <div className={styles.dateSelectors}>
+      <button className={`btn ${styles.selectPreviousDate}`} onClick={prevDate} aria-label="Select previous date">&lt;</button>
+      {showDate.toDateString() !== new Date().toDateString() ? <button className={`btn ${styles.selectCurrentDate}`} onClick={currentDate} aria-label="Select current date">Today</button> : null}
+      <button className={`btn ${styles.selectNextDate}`} onClick={nextDate} aria-label="Select next date">&gt;</button>
+    </div>
+
     <h2 className={styles.logEntryHeader}>
-      <button className="btn" onClick={prevDate} aria-label="Select previous date">&lt;</button>
-      &nbsp;
       {showDate.toDateString()}
-      &nbsp;
-      <button className="btn" onClick={nextDate} aria-label="Select next date">&gt;</button>
     </h2>
 
     <ul id="logEntries" className={styles.logEntries}>
