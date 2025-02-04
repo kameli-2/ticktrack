@@ -1,0 +1,26 @@
+.formInput {
+  text-align: left;
+  display: block;
+  margin: 1rem auto;
+  width: 600px;
+  max-width: calc(100% - 2rem);
+}
+
+.inputLabel {
+  display: inline-block;
+  width: 140px;
+  margin-right: 1rem;
+}
+
+.inputField[type="number"] {
+  width: 3rem;
+}
+
+.inputUnit {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.inputInfo {
+  font-size: 0.8rem;
+}
