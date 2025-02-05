@@ -57,7 +57,8 @@
 }
 
 .logEntryProject {
-  background-color: #eee;
+  background-color: var(--color-project);
+  color: var(--color-text);
 }
 
 .logEntryDescription {
@@ -77,7 +78,7 @@
 
 .logEntryDuplicate {
   background-color: var(--color-add);
-  color: #000;
+  color: var(--color-add-text);
 }
 
 .logEntryDuplicate:hover {
@@ -86,13 +87,15 @@
 
 .logEntryBreak {
   position: relative;
-  color: #555;
+  color: var(--color-text);
   font-size: 0.75rem;
-  text-shadow: 0 0 3px #fff;
+  text-shadow: 0 0 3px var(--color-background);
 }
 
 .logEntryExtendUp,
 .logEntryExtendDown {
+  background-color: var(--color-background);
+  color: var(--color-text);
   border: 1px solid var(--color-border);
   border-top: 0;
   border-bottom: 0;
@@ -102,6 +105,11 @@
   top: 1px;
   left: 2.8rem;
   position: absolute;
+}
+
+.logEntryExtendUp:hover,
+.logEntryExtendDown:hover {
+  background-color: var(--color-button-hover);
 }
 
 .logEntryExtendDown {

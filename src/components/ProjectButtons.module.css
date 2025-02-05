@@ -21,13 +21,18 @@
   border-bottom-right-radius: 0;
 }
 
-.projectButton:hover, .deleteProjectButton:hover {
-  background-color: #fff;
+.projectButton {
+  background-color: var(--color-button);
+  color: var(--color-text);
+}
+
+.projectButton:hover {
+  background-color: var(--color-button-hover);
 }
 
 .projectButton-createNew {
   background-color: var(--color-add);
-  color: #000;
+  color: var(--color-add-text);
 }
 
 .projectButton-createNew:hover {

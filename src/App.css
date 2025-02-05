@@ -1,57 +1,165 @@
-body {
+:root {
+  /** 
+   * VARIABLES
+   *
+   * Please note that there is a dark and light theme.
+   * If you change the value of an existing variable, it's enough to change it here in the :root.
+   *
+   * But if you add a new variable, you must add it to 4 places:
+   * twice here in :root, at body.appearance--dark, and at @media screen and (prefers-color-scheme: dark).
+   */
+  --color-background: #fff;
+  --color-text: #000;
+  --color-link: rgb(0, 0, 141);
+  --color-link-visited: rgb(0, 0, 66);
+  --color-link-hover: rgb(0, 0, 240);
   --color-border: #333;
-  --color-button: #f0f0f0;
-  --color-button-hover: #fff;
+  --color-button: #e0edf5;
+  --color-button-hover: #eaf7ff;
   --color-danger-hover: #c00;
   --color-danger: #a00;
   --color-add: #9eccaf;
+  --color-add-text: #000;
   --color-add-hover: #cfe9d9;
   --border-radius: 0.25rem;
+  --background-image: url('../public/bg-light.jpg');
+  --color-app-background: rgba(255, 255, 255, 0.25);
+  --color-tab-hover: #e1eaf6;
+  --color-project-button: #fff;
+  --color-project: #f0faff;
+  --color-reportrow: #f0faff;
 
-  background-image: url('../public/bg.png');
+  --dark-theme-color-background: #0c2f59;
+  --dark-theme-color-text: #eee;
+  --dark-theme-color-link: rgb(201, 201, 255);
+  --dark-theme-color-link-visited: rgb(221, 221, 255);
+  --dark-theme-color-link-hover: rgb(205, 230, 255);
+  --dark-theme-color-border: rgb(163 234 255);
+  --dark-theme-color-button: #16589b;
+  --dark-theme-color-button-hover: #267cb6;
+  --dark-theme-color-danger-hover: #c00;
+  --dark-theme-color-danger: #a00;
+  --dark-theme-color-add: #58f600;
+  --dark-theme-color-add-text: #000;
+  --dark-theme-color-add-hover: #a7ff76;
+  --dark-theme-background-image: url('../public/bg-dark.jpg');
+  --dark-theme-color-app-background: rgba(0, 0, 0, 0.25);
+  --dark-theme-color-tab-hover: #061428;
+  --dark-theme-color-project-button: #fff;
+  --dark-theme-color-project: #1e497d;
+  --dark-theme-color-reportrow: #1e497d;
+}
+
+body.appearance--dark {
+  --color-background: var(--dark-theme-color-background);
+  --color-text: var(--dark-theme-color-text);
+  --color-link: var(--dark-theme-color-link);
+  --color-link-visited: var(--dark-theme-color-link-visited);
+  --color-link-hover: var(--dark-theme-color-link-hover);
+  --color-border: var(--dark-theme-color-border);
+  --color-button: var(--dark-theme-color-button);
+  --color-button-hover: var(--dark-theme-color-button-hover);
+  --color-danger-hover: var(--dark-theme-color-danger-hover);
+  --color-danger: var(--dark-theme-color-danger);
+  --color-add: var(--dark-theme-color-add);
+  --color-add-text: var(--dark-theme-color-add-text);
+  --color-add-hover: var(--dark-theme-color-add-hover);
+  --background-image: var(--dark-theme-background-image);
+  --color-app-background: var(--dark-theme-color-app-background);
+  --color-tab-hover: var(--dark-theme-color-tab-hover);
+  --color-project-button: var(--dark-theme-color-project-button);
+  --color-project: var(--dark-theme-color-project);
+  --color-reportrow: var(--dark-theme-color-reportrow);
+}
+
+body {
+  background-image: var(--background-image);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
 }
 
+@media screen and (prefers-color-scheme: dark) {
+  body:not(.appearance--light) {
+    --color-background: var(--dark-theme-color-background);
+    --color-text: var(--dark-theme-color-text);
+    --color-link: var(--dark-theme-color-link);
+    --color-link-visited: var(--dark-theme-color-link-visited);
+    --color-link-hover: var(--dark-theme-color-link-hover);
+    --color-border: var(--dark-theme-color-border);
+    --color-button: var(--dark-theme-color-button);
+    --color-button-hover: var(--dark-theme-color-button-hover);
+    --color-danger-hover: var(--dark-theme-color-danger-hover);
+    --color-danger: var(--dark-theme-color-danger);
+    --color-add: var(--dark-theme-color-add);
+    --color-add-text: var(--dark-theme-color-add-text);
+    --color-add-hover: var(--dark-theme-color-add-hover);
+    --background-image: var(--dark-theme-background-image);
+    --color-app-background: var(--dark-theme-color-app-background);
+    --color-tab-hover: var(--dark-theme-color-tab-hover);
+    --color-project-button: var(--dark-theme-color-project-button);
+    --color-project: var(--dark-theme-color-project);
+    --color-reportrow: var(--dark-theme-color-reportrow);
+  }
+}
+
 h1, h2 {
-  color: #000;
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:visited {
+  color: var(--color-link-visited);
+}
+
+a:hover, a:active {
+  color: var(--color-link-hover);
+}
+
+input, select {
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 .App {
+  color: var(--color-text);
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: var(--color-app-background);
   backdrop-filter: blur(5px);
   box-shadow: 0 0 150px #000;
 }
 
 .App-header {
-  background-color: #fff;
   backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #000;
+  color: var(--color-text);
   margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .App-header h1 {
-  color: #000;
+  color: var(--color-text);
   text-shadow: none;
   font-family: cursive;
   margin: 0.5rem;
 }
 
 .btn {
-  border-radius: 0;
+  border-radius: var(--border-radius);
   text-transform: uppercase;
   border: 1px solid var(--color-border);
   padding: 0.5rem 0.75rem;
   background-color: var(--color-button);
-  box-shadow: 2px 2px 0 var(--color-border);
+  box-shadow: 2px 2px 1px var(--color-border);
+  color: var(--color-text);
 }
 
 .btn-small {
@@ -65,7 +173,15 @@ h1, h2 {
 
 .notification {
   display: inline-block;
-  background-color: #fff;
+  background-color: var(--color-background);
   padding: 1rem 2rem;
   box-shadow: 3px 3px 3px var(--color-border);
+}
+
+footer {
+  padding-bottom: 1rem;
+  border: 1px solid var(--color-border);
+  border-left: 0;
+  border-bottom: 0;
+  border-right: 0;
 }

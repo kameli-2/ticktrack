@@ -11,11 +11,11 @@
 }
 
 .reportTable tr:nth-child(2n+1) {
-  background-color: #eee;
+  background-color: var(--color-reportrow);
 }
 
 .reportTable tr:nth-child(2n) {
-  background-color: #fff;
+  background-color: var(--color-background);
 }
 
 .reportTableTotalsRow {

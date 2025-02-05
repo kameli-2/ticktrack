@@ -5,14 +5,22 @@
 }
 
 .tab {
+  background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  border-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   padding: 0.5rem;
+  margin-bottom: -1px;
+  text-decoration: none;
 }
 
 .tab--selected, .tab:hover {
-  background-color: var(--color-button);
+  background-color: var(--color-tab-hover);
+  border-bottom-color: var(--color-tab-hover);
+  color: var(--color-link-visited);
+}
+
+a.tab {
+  color: var(--color-link-visited);
 }

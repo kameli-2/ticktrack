@@ -9,6 +9,7 @@
 
 .todoListCreateNewTodo {
   background-color: var(--color-add);
+  color: var(--color-add-text);
 }
 
 .todoListCreateNewTodo:hover {
@@ -61,7 +62,7 @@
   padding-bottom: 0.44rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #eee;
+  background-color: var(--color-project);
 }
 
 .todoListItem button,
@@ -76,6 +77,7 @@
 
 .todoListItemActionButtons button {
   margin-left: -1px;
+  border-radius: 0;
 }
 
 .todoListItemCheckbox {
@@ -113,6 +115,7 @@ button.todoListItemDelete {
 
 .exportToTimeTracker {
   background-color: var(--color-add);
+  color: var(--color-add-text);
 }
 
 .exportToTimeTracker:hover {
