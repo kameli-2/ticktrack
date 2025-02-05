@@ -88,18 +88,18 @@ export default function AppSettings() {
 
   return <>
     <form action={saveSettingsHandler}>
-      <h3>App Settings</h3>
+      <h2>App Settings</h2>
 
-      <h4>Rounding Log Entries for the Report</h4>
+      <h3>Rounding Log Entries for the Report</h3>
       <p>The log entries with the same project & title are summed, and the sum is rounded up or down using the following rules.</p>
       {settingsInputs.filter(({ group }) => group === 'rounding').map(input => <SettingsInputComponent key={input.id} input={input} currentSettings={currentSettings} />)}
       
-      <h4>Style</h4>
+      <h3>Style</h3>
       {settingsInputs.filter(({ group }) => group === 'style').map(input => <SettingsInputComponent key={input.id} input={input} currentSettings={currentSettings} />)}
       
-      <div>
-        <input type="submit" className="btn" value="Save" />
-      </div>
+      <p>
+        <input type="submit" className="btn btn--full-width" value="Save" />
+      </p>
     </form>
   </>
 }

@@ -2,8 +2,8 @@ import AppSettings from "./AppSettings";
 import ImportExport from "./ImportExport";
 
 export default function Settings() {
-  return <>
+  return <div className="narrow">
     <AppSettings />
     <ImportExport />
-  </>
+  </div>
 }

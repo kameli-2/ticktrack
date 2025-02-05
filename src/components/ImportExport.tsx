@@ -3,6 +3,7 @@ import { getProjects, importProjects, Project } from "../lib/projects"
 import { getSettings, saveSettings, Settings } from "../lib/settings"
 import { getTodos, Todo, importTodos } from "../lib/todos"
 import { downloadFile } from "../lib/utils"
+import styles from "./AppSettings.module.css"
 
 export default function ImportExport() {
   function exportData() {
@@ -59,13 +60,15 @@ export default function ImportExport() {
   }
 
   return <>
-    <h3>Export Data</h3>
+    <h2 className={styles.dividingHeader}>Export Data</h2>
     <p>
       Click the button to save all your TickTrack data (projects, log entries, todos, settings) as a .json file on your system. You can use this data to import it back to TickTrack on another device or browser.
     </p>
-    <button className="btn" onClick={exportData}>Export all TickTrack data</button>
+    <p>
+      <button className="btn btn--full-width" onClick={exportData}>Export all TickTrack data</button>
+    </p>
 
-    <h3>Import Data</h3>
+    <h2 className={styles.dividingHeader}>Import Data</h2>
     <p>
       Upload a TickTrack export file from your system to TickTrack.
     </p>
@@ -93,7 +96,7 @@ export default function ImportExport() {
       </p>
 
       <p>
-        <input className="btn" type="submit" value="Import data" />
+        <input className="btn btn--full-width" type="submit" value="Import data" />
       </p>
     </form>
   </>
