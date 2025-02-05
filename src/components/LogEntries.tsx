@@ -11,6 +11,7 @@ import {
 } from '../lib/logEntries';
 import type { LogEntry, Time } from '../lib/logEntries';
 import Report from './Report'
+import { getProjects } from '../lib/projects';
 
 type LogEntriesProps = {
   logEntries: LogEntry[],
@@ -20,6 +21,7 @@ type LogEntriesProps = {
 export default function LogEntries(props: LogEntriesProps) {
   const [showDate, setShowDate] = useState(new Date());
   const { logEntries, setLogEntries } = props;
+  const projects = getProjects();
 
   function prevDate() {
     setShowDate(new Date(+showDate - 1000 * 60 * 60 * 24));
@@ -54,6 +56,7 @@ export default function LogEntries(props: LogEntriesProps) {
         hours: (document.getElementById(`log-entry-end-time-hours-${id}`) as HTMLInputElement)?.value,
         minutes: (document.getElementById(`log-entry-end-time-minutes-${id}`) as HTMLInputElement)?.value,
       },
+      project: (document.getElementById(`log-entry-project-${id}`) as HTMLSelectElement)?.value,
       description: (document.getElementById(`log-entry-description-${id}`) as HTMLInputElement)?.value,
     };
 
@@ -148,7 +151,11 @@ export default function LogEntries(props: LogEntriesProps) {
           <input aria-label="Entry end time hours" className={styles.logEntryHours} id={`log-entry-end-time-hours-${logEntry.id}`} type="number" min="0" max="23" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.hours || 0} />
           <input aria-label="Entry end time minutes" className={styles.logEntryMinutes} id={`log-entry-end-time-minutes-${logEntry.id}`} type="number" min="-1" max="60" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.endTime?.minutes || 0} />
           &nbsp;
-          <span className={styles.logEntryProject}>{typeof logEntry.project === 'string' ? logEntry.project : ''}</span>
+          <select aria-label="Entry project" className={styles.logEntryProject} defaultValue={logEntry.project} id={`log-entry-project-${logEntry.id}`} onChange={(e) => updateLogEntryHandler(logEntry.id)}>
+            {projects.map(project =>
+              <option key={project.name}>{project.name}</option>
+            )}
+          </select>
           <input aria-label="Entry description" className={styles.logEntryDescription} id={`log-entry-description-${logEntry.id}`} type="text" placeholder="Description" onChange={() => updateLogEntryHandler(logEntry.id)} defaultValue={logEntry.description} />
           <button aria-label="Delete entry" className={styles.logEntryDelete} onClick={() => deleteLogEntryHandler(logEntry.id)}>&times;</button>
           <button aria-label="Duplicate entry" className={styles.logEntryDuplicate} onClick={() => duplicateLogEntryHandler(logEntry.id)}>+</button>

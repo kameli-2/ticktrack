@@ -59,6 +59,8 @@
 .logEntryProject {
   background-color: var(--color-project);
   color: var(--color-text);
+  padding-top: 0.44rem;
+  padding-bottom: 0.44rem;
 }
 
 .logEntryDescription {
