@@ -5,6 +5,7 @@ export type Settings = {
   rounding__always_round_up: boolean,
   rounding__min_duration: number,
   rounding__max_decimals: number,
+  style__appearance: 'auto' | 'light' | 'dark',
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -12,6 +13,7 @@ const DEFAULT_SETTINGS: Settings = {
   rounding__always_round_up: true,
   rounding__min_duration: 30,
   rounding__max_decimals: 2,
+  style__appearance: 'auto',
 }
 
 export function saveSettings(settings: Partial<Settings>) {

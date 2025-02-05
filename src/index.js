@@ -4,11 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import App from './App';
 import Todos from './Todos';
 import Settings from './Settings';
+import { getSettings } from './lib/settings';
+import { setAppearance } from './lib/utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+setAppearance();
 
 root.render(
   <div className="App">
@@ -19,6 +24,7 @@ root.render(
         <Route path="/todo" element={<Todos />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   </div>
 );
