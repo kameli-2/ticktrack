@@ -8,7 +8,6 @@ import Footer from './components/Footer';
 import App from './App';
 import Todos from './Todos';
 import Settings from './Settings';
-import { getSettings } from './lib/settings';
 import { setAppearance } from './lib/utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
