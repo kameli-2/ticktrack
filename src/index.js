@@ -7,6 +7,8 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import App from './App';
 import Todos from './Todos';
+import Notes from './Notes';
+import Note from './Note';
 import Settings from './Settings';
 import { setAppearance } from './lib/utils';
 
@@ -21,6 +23,8 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/todo" element={<Todos />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/notes/:id" element={<Note />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
       <Footer />

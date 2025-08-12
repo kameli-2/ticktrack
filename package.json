@@ -10,6 +10,7 @@
     "@types/node": "^22.10.0",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
+    "md-editor-rt": "^5.8.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "^7.0.2",

@@ -1,4 +1,5 @@
 import { getLogEntries, importLogEntries, LogEntry } from "../lib/logEntries"
+import { getNotes, importNotes, Note } from "../lib/notes"
 import { getProjects, importProjects, Project } from "../lib/projects"
 import { getSettings, saveSettings, Settings } from "../lib/settings"
 import { getTodos, Todo, importTodos } from "../lib/todos"
@@ -11,6 +12,7 @@ export default function ImportExport() {
       projects: getProjects(),
       logEntries: getLogEntries(),
       todos: getTodos(),
+      notes: getNotes(),
       settings: getSettings(),
     }
     downloadFile(`TickTrack-Export-${new Date().toISOString()}.json`, JSON.stringify(data));
@@ -40,6 +42,7 @@ export default function ImportExport() {
       projects?: Project[],
       logEntries?: LogEntry[],
       todos?: Todo[],
+      notes?: Note[],
       settings: Settings,
     };
 
@@ -54,9 +57,10 @@ export default function ImportExport() {
     if (json.projects && json.projects?.length > 0) importProjects(json.projects, overwrite);
     if (json.logEntries && json.logEntries?.length > 0) importLogEntries(json.logEntries, overwrite);
     if (json.todos && json.todos?.length > 0) importTodos(json.todos, overwrite);
+    if (json.notes && json.notes?.length > 0) importNotes(json.notes, overwrite);
     if (json.settings) saveSettings(json.settings);
 
-    window.alert(`Import successful: ${json.projects?.length || 0} projects, ${json.logEntries?.length || 0} log entries, ${json.todos?.length || 0} todos, settings. Existing data ${overwrite ? 'was' : 'was not'} overwritten.`);
+    window.alert(`Import successful: ${json.projects?.length || 0} projects, ${json.logEntries?.length || 0} log entries, ${json.todos?.length || 0} todos, ${json.notes?.length || 0} notes, settings. Existing data ${overwrite ? 'was' : 'was not'} overwritten.`);
   }
 
   return <>

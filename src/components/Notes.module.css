@@ -1,0 +1,82 @@
+.createNoteButton {
+  background-color: var(--color-add);
+  color: var(--color-add-text);
+}
+
+.createNoteButton:hover {
+  background-color: var(--color-add-hover);
+}
+
+.noteList {
+  text-align: left;
+  overflow: auto;
+  
+  --color-note-background: #fff;
+  --color-note-border: #000;
+  --color-note-text: #000;
+}
+
+.noteListItem {
+  float: left;
+  background-color: var(--color-background);
+  box-shadow: 3px 3px 3px var(--color-border);
+  border: 1px solid transparent;
+  color: var(--color-note-text);
+  list-style: none;
+  margin: 0.5rem;
+  padding: 0;
+}
+
+.noteListItem a {
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  width: 15rem;
+}
+
+.noteListItem:hover {
+  border-color: var(--color-border);
+}
+
+.noteListItem * {
+  text-decoration: none;
+  font-family: cursive;
+}
+
+.noteContainer {
+  text-align: left;
+  --delete-button-width: 10rem;
+}
+
+.noteTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  height: 2.7rem;
+  padding: 0.5rem;
+  width: calc(100% - var(--delete-button-width) + 1px);
+  border-top-left-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  margin-bottom: -1px;
+  position: relative;
+  bottom: -4px;
+}
+
+.deleteNote {
+  background-color: var(--color-danger);
+  color: #fff;
+  width: var(--delete-button-width);
+  font-size: .9rem;
+  line-height: 1.5rem;
+  border-top-right-radius: var(--border-radius);
+  margin-left: -1px;
+  margin-bottom: -1px;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  position: relative;
+}
+
+.deleteNote:hover {
+  background-color: var(--color-danger-hover);
+}

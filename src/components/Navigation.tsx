@@ -22,6 +22,10 @@ export default function Navigation() {
       name: "Todos",
     },
     {
+      path: "/notes",
+      name: "Notes",
+    },
+    {
       path: "/settings",
       name: "Settings",
     }
