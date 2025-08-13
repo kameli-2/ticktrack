@@ -4,6 +4,7 @@ import styles from './Notes.module.css'
 import { MdEditor } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 import { useNavigate } from "react-router-dom";
+import { getSettings } from "../lib/settings";
 
 export default function NoteComponent(props: { id: number }) {
   const { id } = props;
@@ -12,6 +13,8 @@ export default function NoteComponent(props: { id: number }) {
   const navigate = useNavigate();
 
   if (!note) return <p>Note not found</p>
+
+  const theme = getSettings('style__appearance');
 
   function updateTitle(e: ChangeEvent<HTMLInputElement>) {
     const newTitle = e.currentTarget.value;
@@ -45,6 +48,12 @@ export default function NoteComponent(props: { id: number }) {
       onChange={updateContent}
       value={content}
       language="en-US"
+      theme={theme}
+      style={{
+        height: "calc(100vh - 22rem)",
+        minHeight: "25rem",
+      }}
+      toolbarsExclude={['save', 'fullscreen', 'pageFullscreen']}
     />
   </section>
 }
