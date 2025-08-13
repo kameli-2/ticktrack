@@ -5,11 +5,13 @@ import { MdEditor } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 import { useNavigate } from "react-router-dom";
 import { getSettings } from "../lib/settings";
+import { downloadFile } from "../lib/utils";
 
 export default function NoteComponent(props: { id: number }) {
   const { id } = props;
   const note = getNote(id);
   const [content, setContent] = useState(note?.content);
+  const [title, setTitle] = useState(note?.title);
   const navigate = useNavigate();
 
   if (!note) return <p>Note not found</p>
@@ -19,12 +21,13 @@ export default function NoteComponent(props: { id: number }) {
   function updateTitle(e: ChangeEvent<HTMLInputElement>) {
     const newTitle = e.currentTarget.value;
     if (!newTitle) return;
-    updateNote(id, { title: newTitle})
+    updateNote(id, { title: newTitle});
+    setTitle(newTitle);
   }
 
   function updateContent(newValue: string) {
-    updateNote(id, { content: newValue })
-    setContent(newValue)
+    updateNote(id, { content: newValue });
+    setContent(newValue);
   }
 
   function handleDelete() {
@@ -34,12 +37,16 @@ export default function NoteComponent(props: { id: number }) {
     }
   }
 
+  function handleSave() {
+    downloadFile(`${title}.json`, content);
+  }
+
   return <section className={styles.noteContainer}>
     <input
       className={styles.noteTitle}
       type="text"
       name="title"
-      defaultValue={note.title}
+      defaultValue={title}
       onChange={updateTitle}
     />
     <button className={styles.deleteNote} onClick={handleDelete}>&times; Delete note</button>
@@ -53,7 +60,8 @@ export default function NoteComponent(props: { id: number }) {
         height: "calc(100vh - 22rem)",
         minHeight: "25rem",
       }}
-      toolbarsExclude={['save', 'fullscreen', 'pageFullscreen']}
+      toolbarsExclude={['fullscreen', 'pageFullscreen']}
+      onSave={handleSave}
     />
   </section>
 }
