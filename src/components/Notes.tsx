@@ -31,8 +31,9 @@ export default function Notes() {
           .map(note => <NoteListItem key={note.id} note={note} setNotes={setNotes} />)
         }
       </ul>
-      <hr />
     </> : null}
+
+    {notesByStatus['pinned'].length > 0 && notes.length > notesByStatus['pinned'].length ? <hr /> : null}
 
     {notesByStatus['default'].length > 0 ? <>
       <ul className={styles.noteList}>
@@ -43,7 +44,7 @@ export default function Notes() {
       </ul>
     </> : null}
 
-    {notesByStatus['default'].length + notesByStatus['archived'].length > 0 ? <hr /> : null}
+    {notesByStatus['default'].length > 0 && notesByStatus['archived'].length > 0 ? <hr /> : null}
 
     {notesByStatus['archived'].length > 0 ? <details>
       <summary><h2>Archived notes</h2></summary>
@@ -79,6 +80,11 @@ function NoteListItem(props: { note: Note, setNotes: Function }) {
     setNotes(getNotes());
   }
 
+  function setStatusToDefault() {
+    updateNote(note.id, { status: 'default' });
+    setNotes(getNotes());
+  }
+
   function handleDelete() {
     if (window.confirm(`Are you sure you want to delete the note ${note.title}?`)) {
       deleteNote(note.id);
@@ -94,8 +100,8 @@ function NoteListItem(props: { note: Note, setNotes: Function }) {
     <details className={styles.noteListItemActions}>
       <summary>&middot;&middot;&middot;</summary>
       <nav className={styles.noteListItemActionsMenu}>
-        <button onClick={handlePin}>📌&nbsp;Pin</button>
-        <button onClick={handleArchive}>📂&nbsp;Archive</button>
+        {note.status === 'pinned' ? <button onClick={setStatusToDefault}>📌&nbsp;Unpin</button> : <button onClick={handlePin}>📌&nbsp;Pin</button>}
+        {note.status === 'archived' ? <button onClick={setStatusToDefault}>📂&nbsp;Unarchive</button> : <button onClick={handleArchive}>📂&nbsp;Archive</button>}
         <button onClick={handleDelete} className={styles.noteListItemActionDelete}>&times;&nbsp;Delete</button>
       </nav>
     </details>
