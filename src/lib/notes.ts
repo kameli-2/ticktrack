@@ -8,6 +8,7 @@ export type Note = {
   content?: string,
   created: Date,
   id: number,
+  status: 'default' | 'archived' | 'pinned',
 }
 
 export function createNoteFromTodo(todo: number) {
@@ -31,6 +32,8 @@ export function createNote(note?: Note) {
     } as Note;
     note.id = getNoteId(note);
   }
+
+  if (!note.status) note.status = 'default';
 
   notes.push(note);
   window.localStorage.setItem(LOCALSTORAGE_ITEM_KEY, JSON.stringify(notes));

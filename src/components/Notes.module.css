@@ -14,6 +14,15 @@
   --color-note-background: #fff;
   --color-note-border: #000;
   --color-note-text: #000;
+  --color-note-actions-menu-background: var(--color-tab-hover);
+  --color-note-actions-menu-text: var(--color-text);
+  --color-note-actions-menu-hover-background: var(--color-border);
+  --color-note-actions-menu-hover-text: var(--color-tab-hover);
+}
+
+summary h2 {
+  display: inline-block;
+  cursor: pointer;
 }
 
 .noteListItem {
@@ -25,6 +34,7 @@
   list-style: none;
   margin: 0.5rem;
   padding: 0;
+  position: relative;
 }
 
 .noteListItem a {
@@ -41,6 +51,82 @@
 .noteListItem * {
   text-decoration: none;
   font-family: cursive;
+}
+
+.noteListItemActions {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.noteListItemActions * {
+  font-family: sans-serif;
+}
+
+.noteListItemActions summary {
+  color: var(--color-text);
+  list-style-type: none;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: var(--border-radius);
+  padding: 0 0.5rem;
+  line-height: 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.noteListItemActions summary:hover,
+.noteListItemActions[open] summary {
+  background-color: var(--color-note-actions-menu-background);
+  color: var(--color-note-actions-menu-text);
+}
+
+.noteListItemActions[open] summary {
+  border-radius: 0;
+}
+
+.noteListItemActionsMenu {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  background-color: var(--color-note-actions-menu-background);
+  border-radius: var(--border-radius);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.noteListItemActionsMenu button {
+  color: var(--color-note-actions-menu-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-width: 5rem;
+  height: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border)
+}
+
+.noteListItemActionsMenu button:first-child {
+  border-top-left-radius: var(--border-radius);
+}
+
+.noteListItemActionsMenu button:last-child {
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.noteListItemActionsMenu button:hover {
+  background-color: var(--color-note-actions-menu-hover-background);
+  border-color: var(--color-note-actions-menu-hover-background);
+  color: var(--color-note-actions-menu-hover-text);
+}
+
+button.noteListItemActionDelete {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: #fff;
 }
 
 .noteContainer {
